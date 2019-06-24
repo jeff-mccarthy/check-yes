@@ -1,0 +1,72 @@
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+.container {
+  width: 100%;
+
+  @media (min-width: 767px) {
+    width: 80vw;
+  }
+}
+
+.navbar-container + .container {
+  margin-top: 40px;
+}
+
+.dashboard {
+  padding-top: 40px;
+  
+  > .container:not(:last-child) {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #ececec;
+  }
+}
+
+.card {
+  margin-bottom: 16px;
+}
+
+.cover-image {
+  margin-bottom: 40px;
+
+  > img {
+    width: 100%;
+  }
+}
+
+.card-title {
+  margin-bottom: 20px;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border-bottom: 1px solid #ececec;
+
+  [type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  &-sort {
+    margin-right: 12px;
+    color: #e5e5f9;
+    transition: color 0.25s;
+  }
+
+  &:hover {
+    .todo-sort {
+      cursor: ns-resize;
+      color: #bcc3ce;
+      transition: color 0.25s;
+    }
+  }
+
+  &-content {
+    margin-right: auto;
+  }
+}

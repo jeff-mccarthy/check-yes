@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// import Welcome from './components/Welcome';
+import Navbar from './components/layout/Navbar';
+import SignUp from './components/auth/SignUp';
+import SignIn from './components/auth/SignIn';
+import Dashboard from './components/dashboard/Dashboard';
+import ChecklistDetail from './components/ChecklistDetail';
+import CreateList from './components/CreateList';
+
+export class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/signin" component={SignIn} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/list/:list" component={ChecklistDetail} />
+            <Route path="/create" component={CreateList} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    checklists: state.checklists
+  }
+}
+
+export default connect(mapStateToProps)(App);
