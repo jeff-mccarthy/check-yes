@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+
 import { createChecklist } from '../actions/checklistActions';
 
-class CreateList extends Component {
+class CreateChecklist extends Component {
   state = {
     title: '',
     description: '',
@@ -17,17 +18,26 @@ class CreateList extends Component {
   }
 
   handleTags = (e) => {
-    let val = e.target.value.split(',');
+    let tags = e.target.value.split(','),
+        newTags = tags.map((tag) => {
+          return {
+            id: `tag${Math.round(Math.random()*10000)}`,
+            title: tag.trim()
+          }
+        });
 
+    // needs to be an array of objects
+    // id: ?
+    // title: tag1
     this.setState({
-      [e.target.id]: val
+      [e.target.id]: newTags
     })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     
-    this.props.createList(this.state);
+    this.props.createChecklist(this.state);
     this.props.history.push('/');
   }
 
@@ -35,7 +45,7 @@ class CreateList extends Component {
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
-          <h5 className="grey-text text-darken-3">Create Project</h5>
+          <h5 className="grey-text text-darken-3">Create Checklist</h5>
 
           <div className="form-group">
             <label className="form-label" htmlFor="title">Title</label>
@@ -68,8 +78,9 @@ class CreateList extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createList: (project) => dispatch(createChecklist(project))
+    createChecklist: (project) => dispatch(createChecklist(project))
   }
 }
 
-export default connect(null, mapDispatchToProps)(CreateList);
+// connect(mapStateToProps, mapDispatchToProps);
+export default connect(null, mapDispatchToProps)(CreateChecklist);

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 export default function SignedInLinks() {
   return (
     <section className="navbar-section">
-      <Link to="/signup">Login</Link>
+      <Link to="/signin">Login</Link>
       <div className="divider-vert"></div>
-      <Link to="/signin">Sign Up</Link>
+      <Link to="/signup">Sign Up</Link>
     </section>
   )
 }

@@ -1,25 +1,29 @@
 import React, { Component } from 'react'
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 import ListChecklists from './ListChecklists';
 
 class Dashboard extends Component {
   render() {
     const { checklists } = this.props;
-    const incompletes = checklists.filter(list => !list.completed);
-    const favorites = checklists.filter(list => list.favorite);
+    const inProgress = checklists && checklists.filter(list => !list.completed);
+    const favorites = checklists && checklists.filter(list => list.favorite);
+    const recents = checklists && checklists.filter(list => list.completed && !list.favorite);
 
     return (
       <div className="dashboard">
         <div className="container">
-          <h1>Incomplete Lists</h1>
-          <ListChecklists lists={incompletes} />
+          <h1>In Progress Lists</h1>
+          
+          <ListChecklists lists={inProgress} />
 
           <h1>Favorite Lists</h1>
           <ListChecklists lists={favorites}/>
           
           <h1>Recent Lists</h1>
-          <ListChecklists lists={checklists.sort()}/>
+          <ListChecklists lists={recents}/>
         </div>
       </div>
     )
@@ -27,9 +31,14 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    checklists: state.checklists
-  }
+  const { checklists } = state.firestore.ordered;
+  
+  return { checklists }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default compose(
+  connect(mapStateToProps), 
+  firestoreConnect([
+    { collection: 'checklists'}
+  ])
+)(Dashboard);

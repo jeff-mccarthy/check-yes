@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Empty = () => {
   return (
@@ -9,7 +10,7 @@ const Empty = () => {
       <p className="empty-title h5">You have no new checklists</p>
       <p className="empty-subtitle">Click below to add your first!</p>
       <div className="empty-action">
-        <button className="btn btn-primary"><i className="icon icon-plus mr-2"></i> Add Checklist</button>
+        <Link to="/create"><button className="btn btn-primary"><i className="icon icon-plus mr-2"></i> Add Checklist</button></Link>
       </div>
     </div>
   )

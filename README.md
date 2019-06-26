@@ -1,8 +1,8 @@
 # Check Yes
 A collection of checklists you need at random times in life
 
-## Available Scripts
 
+## Available Scripts
 In the project directory, you can run:
 
 ### `npm start`

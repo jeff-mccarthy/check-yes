@@ -11,8 +11,12 @@ html, body {
   }
 }
 
-.navbar-container + .container {
-  margin-top: 40px;
+.navbar-container {
+  padding: 10px 0;
+
+  + .container {
+    margin-top: 40px;
+  }
 }
 
 .dashboard {

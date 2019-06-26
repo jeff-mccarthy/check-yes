@@ -8,7 +8,8 @@ import SignUp from './components/auth/SignUp';
 import SignIn from './components/auth/SignIn';
 import Dashboard from './components/dashboard/Dashboard';
 import ChecklistDetail from './components/ChecklistDetail';
-import CreateList from './components/CreateList';
+import CreateChecklist from './components/CreateChecklist';
+import EditChecklist from './components/EditChecklist';
 
 export class App extends Component {
   render() {
@@ -21,8 +22,9 @@ export class App extends Component {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/list/:list" component={ChecklistDetail} />
-            <Route path="/create" component={CreateList} />
+            <Route path="/list/:id" component={ChecklistDetail} />
+            <Route path="/create" component={CreateChecklist} />
+            <Route path="/edit/:id" component={EditChecklist} />
           </Switch>
         </div>
       </BrowserRouter>

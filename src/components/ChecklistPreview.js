@@ -15,10 +15,13 @@ const ChecklistPreview = ({ list }) => {
   ) : null;
     
   return (
-    <div className="column col-md-12 col-3">
+    <div className="column col-md-12 col-xl-4 col-3">
       <div className="card">
-        { image }
+        <Link to={"/list/" + list.id}>
+          { image }
+        </Link>
         <div className="card-header">
+          {/* wrapping card in <Link> */}
           <Link to={"/list/" + list.id}>
             <div className="card-title h5 text-primary">{list.title}</div>
           </Link>
