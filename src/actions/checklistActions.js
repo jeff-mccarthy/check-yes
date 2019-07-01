@@ -34,6 +34,8 @@ export const updateChecklist = (list) => {
         type: 'UPDATE_CHECKLIST',
         list
       })
+    }).catch((err) => {
+      dispatch({ type: 'UPDATE_CHECKLIST_ERROR', error: err })
     })
   };
 }
@@ -50,6 +52,8 @@ export const toggleChecklist = (list) => {
         type: 'TOGGLE_CHECKLIST_COMPLETE',
         list
       })
+    }).catch((err) => {
+      dispatch({ type: 'TOGGLE_CHECKLIST_ERROR', error: err })
     })
   }
 }
@@ -66,7 +70,26 @@ export const toggleFavorite = (list) => {
         type: 'TOGGLE_CHECKLIST_FAVORITE',
         list
       })
+    }).catch((err) => {
+      dispatch({ type: 'TOGGLE_CHECKLIST_FAVORITE_ERROR', error: err })
     })
+  }
+}
+
+export const deleteChecklist = (list) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore.collection('checklists').doc(list.id).delete()
+      .then(() => {
+        dispatch({
+          type: 'DELETE_CHECKLIST',
+          list
+        })
+      })
+      .catch((err) => {
+        dispatch({ type: 'DELETE_CHECKLIST_ERROR', error: err })
+      })
   }
 }
 

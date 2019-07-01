@@ -9,11 +9,6 @@ const checklistReducer = (state = {}, action) => {
 
     case 'TOGGLE_CHECKLIST_COMPLETE':
       return state;
-      // const { id, completed } = action.payload;
-      // const list = state.map((list) => {
-      //   return list.id === id ? { ...list, id, completed } : list;
-      // });
-      // return list;
 
     default:
       return state;

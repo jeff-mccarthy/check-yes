@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-import Todo from './Todo';
+import ListTodos from './ListTodos';
 
 import { toggleChecklist, toggleFavorite } from '../actions/checklistActions';
 
@@ -17,45 +18,53 @@ class ChecklistDetail extends Component {
     this.props.toggleFavorite(this.props.list);
   }
 
-  render() {
-    console.log(this.props);
+  convertDate(date) {
+    return moment(date).format('dddd MMMM D Y');
+  }
 
+  render() {
     const { list } = this.props;
 
     if (list) {
-      const todos = list.todos.map(todo => {
-        return <Todo {...todo} key={todo.id} />
-      });
+      const coverImage = list.imageUrl ? (
+        <div className="cover-image">
+          <img src={list.imageUrl} className="img-fit-cover" alt="cover goes here" />
+        </div>
+      ) : (null);
+
+      const todoList = list.todos ? (
+        <ListTodos list={list} />
+      ) : null;
 
       return (
         <div className="checklist-detail">
-          <div className="cover-image">
-            <img src={list.imageUrl} className="img-fit-cover" alt="cover goes here" />
-          </div>
+
+          {coverImage}
+
           <div className="container">
+            <h1>{list.title}</h1>
+
             <div className="divider"></div>
             <div className="checklist-toolbar">
-              <div className="form-group">
+              <span className="checklist-created"><i className="icon icon-time"></i> {this.convertDate(list.created.toDate())} </span>
+              <div className="form-group form-inline">
                 <label className="form-switch form-inline">
                   <input type="checkbox" checked={list.completed} onChange={this.updateCompleted} />
-                  Complete <i className="form-icon"></i>
+                  <i className="form-icon"></i> <span className="text-primary">Complete</span>
                 </label>
                 <label className="form-switch form-inline">
                   <input type="checkbox" checked={list.favorite} onChange={this.updateFavorite} />
-                  Favorite <i className="form-icon"></i>
+                  <i className="form-icon"></i> <span className="text-primary">Favorite</span>
                 </label>
-                <Link to={'/edit/' + list.id}><i className="icon icon-edit"></i></Link>
+                <Link to={'/edit/' + list.id}><i className="icon icon-edit"></i> Edit</Link>
               </div>
             </div>
             <div className="divider"></div>
 
-            <h1>{list.title}</h1>
-
             <p>{list.description}</p>
+            
+            { todoList }
 
-            <h2>To dos</h2>
-            <div className="divider"></div>
-            {todos}
           </div>
         </div>
       )
